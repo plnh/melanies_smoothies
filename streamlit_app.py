@@ -1,4 +1,19 @@
 # Import python packages
+
+import importlib, sys
+
+def debug_snowpark():
+    try:
+        sp = importlib.import_module("snowflake.snowpark")
+        print("snowflake.snowpark module:", sp)
+        f = importlib.import_module("snowflake.snowpark.functions")
+        print("snowflake.snowpark.functions module:", f)
+    except Exception as e:
+        print("Import error:", repr(e))
+        print("sys.path:", sys.path)
+
+debug_snowpark()
+
 import streamlit as st
 from snowflake.snowpark.functions import col
 

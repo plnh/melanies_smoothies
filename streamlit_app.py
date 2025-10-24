@@ -1,21 +1,8 @@
 # Import python packages
 
-import importlib, sys
-
-def debug_snowpark():
-    try:
-        sp = importlib.import_module("snowflake.snowpark")
-        print("snowflake.snowpark module:", sp)
-        f = importlib.import_module("snowflake.snowpark.functions")
-        print("snowflake.snowpark.functions module:", f)
-    except Exception as e:
-        print("Import error:", repr(e))
-        print("sys.path:", sys.path)
-
-debug_snowpark()
-
 import streamlit as st
 from snowflake.snowpark.functions import col
+import requests 
 
 # Write directly to the app
 st.title(f":cup_with_straw: Customize Your Smoothie:cup_with_straw:")
@@ -55,3 +42,5 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         st.success(f"Your Smoothie is ordered, {name_on_order}!", icon="✅")
         
+smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+st.text(smoothiefroot_response.json())
